@@ -134,7 +134,12 @@
   }
 
   .ccd-input {
-    @apply border-2 border-border bg-card px-4 py-3 text-base transition-all duration-200;
+    @apply border-2 border-border bg-white px-4 py-3 text-base transition-all duration-200;
+    color: #1a1a1a !important;
+  }
+
+  .ccd-input::placeholder {
+    color: #666666 !important;
   }
 
   .ccd-input:focus {
@@ -142,7 +147,7 @@
   }
 
   .ccd-card {
-    @apply bg-card rounded-lg shadow-md border border-border/50;
+    @apply bg-white rounded-lg shadow-md border border-border/50;
     box-shadow: var(--shadow-md);
   }
 }
