@@ -10,9 +10,9 @@ const TermsPanel = () => {
   ];
 
   return (
-    <div className="relative overflow-hidden rounded-xl ccd-shadow h-full animate-slide-in-right">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/70" />
+    <div className="relative overflow-hidden rounded-xl ccd-shadow h-full animate-slide-in-right terms-panel-capture">
+      {/* Solid Gradient Background - no transparency for better capture */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#003366] via-[#004080] to-[#0066a6]" />
       
       {/* Content */}
       <div className="relative z-10 p-8 h-full flex flex-col">
@@ -24,27 +24,27 @@ const TermsPanel = () => {
           
           {/* Social Icons */}
           <div className="flex gap-3">
-            <a href="#" className="w-8 h-8 rounded-full bg-card/20 flex items-center justify-center hover:bg-card/40 transition-colors">
-              <Facebook className="w-4 h-4 text-primary-foreground" />
+            <a href="#" className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition-colors">
+              <Facebook className="w-4 h-4 text-white" />
             </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-card/20 flex items-center justify-center hover:bg-card/40 transition-colors">
-              <Linkedin className="w-4 h-4 text-primary-foreground" />
+            <a href="#" className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition-colors">
+              <Linkedin className="w-4 h-4 text-white" />
             </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-card/20 flex items-center justify-center hover:bg-card/40 transition-colors">
-              <Youtube className="w-4 h-4 text-primary-foreground" />
+            <a href="#" className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition-colors">
+              <Youtube className="w-4 h-4 text-white" />
             </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-card/20 flex items-center justify-center hover:bg-card/40 transition-colors">
-              <Instagram className="w-4 h-4 text-primary-foreground" />
+            <a href="#" className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition-colors">
+              <Instagram className="w-4 h-4 text-white" />
             </a>
           </div>
         </div>
 
         {/* Welcome Text */}
         <div className="mb-6">
-          <p className="text-primary-foreground/80 text-sm font-medium mb-1">
+          <p className="text-white text-sm font-medium mb-1">
             BIENVENIDO AL CCD
           </p>
-          <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-primary-foreground leading-tight">
+          <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-white leading-tight">
             TÉRMINOS Y<br />CONDICIONES
           </h2>
         </div>
@@ -54,7 +54,7 @@ const TermsPanel = () => {
           {terms.map((term, index) => (
             <div key={index} className="flex gap-3">
               <CheckCircle2 className="w-5 h-5 text-ccd-gold flex-shrink-0 mt-0.5" />
-              <p className="text-primary-foreground/90 text-sm leading-relaxed">
+              <p className="text-white text-sm leading-relaxed">
                 {term}
               </p>
             </div>
@@ -62,8 +62,8 @@ const TermsPanel = () => {
         </div>
 
         {/* Website */}
-        <div className="mt-6 pt-4 border-t border-primary-foreground/20">
-          <p className="text-primary-foreground/70 text-sm text-center">
+        <div className="mt-6 pt-4 border-t border-white/30">
+          <p className="text-white text-sm text-center">
             www.ccdcapacitacion.edu.pe
           </p>
         </div>
