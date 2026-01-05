@@ -201,18 +201,32 @@
     color: #003366 !important;
   }
 
-  /* Grid horizontal for print - 3 equal columns */
+  /* Grid horizontal for print - adjusted proportions */
   .grid {
     display: flex !important;
     flex-direction: row !important;
-    gap: 10px !important;
+    gap: 8px !important;
     align-items: stretch !important;
   }
 
-  .lg\\:col-span-2,
-  .lg\\:col-span-5 {
-    flex: 1 1 33.33% !important;
-    max-width: 33.33% !important;
+  /* First column - Logo/QR (20%) */
+  .lg\\:col-span-2:first-child {
+    flex: 0 0 18% !important;
+    max-width: 18% !important;
+    min-width: 0 !important;
+  }
+
+  /* Middle column - Formulario (50%) */
+  .lg\\:col-span-5:nth-child(2) {
+    flex: 0 0 48% !important;
+    max-width: 48% !important;
+    min-width: 0 !important;
+  }
+
+  /* Last column - Términos (32%) */
+  .lg\\:col-span-5:last-child {
+    flex: 0 0 32% !important;
+    max-width: 32% !important;
     min-width: 0 !important;
   }
 
@@ -221,7 +235,7 @@
   .lg\\:col-span-5 > div {
     border: 1px solid #003366 !important;
     border-radius: 4px !important;
-    padding: 8px !important;
+    padding: 6px !important;
     background: white !important;
     height: 100% !important;
     box-sizing: border-box !important;
@@ -235,7 +249,7 @@
     justify-content: center !important;
     border: 1px solid #003366 !important;
     border-radius: 4px !important;
-    padding: 8px !important;
+    padding: 6px !important;
     background: #f8fafc !important;
   }
 
