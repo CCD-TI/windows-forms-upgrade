@@ -63,113 +63,58 @@ Fecha: ${new Date().toLocaleDateString('es-PE')}`;
   };
 
   const handleDownloadPDF = async () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    
-    // Header background
-    doc.setFillColor(0, 51, 102);
-    doc.rect(0, 0, pageWidth, 45, 'F');
-    
-    // Logo - load and add
-    try {
-      const logoImg = new Image();
-      logoImg.crossOrigin = "anonymous";
-      logoImg.src = "/logo-ccd-blanco.png";
-      await new Promise((resolve) => {
-        logoImg.onload = resolve;
-        logoImg.onerror = resolve;
-      });
-      doc.addImage(logoImg, 'PNG', 15, 8, 30, 30);
-    } catch (e) {
-      console.log("Logo not loaded");
-    }
-    
-    // Header title
-    doc.setFontSize(18);
-    doc.setTextColor(255, 255, 255);
-    doc.text("CENTRO DE CAPACITACIÓN", 50, 20);
-    doc.text("Y DESARROLLO - CCD", 50, 28);
-    doc.setFontSize(12);
-    doc.text("Registro de Matrícula 2026", 50, 38);
-    
-    // Content section
-    doc.setFillColor(245, 247, 250);
-    doc.rect(15, 55, pageWidth - 30, 90, 'F');
-    
-    // Border
-    doc.setDrawColor(0, 51, 102);
-    doc.setLineWidth(0.5);
-    doc.rect(15, 55, pageWidth - 30, 90, 'S');
-    
-    // Section title
-    doc.setFontSize(14);
-    doc.setTextColor(0, 51, 102);
-    doc.text("DATOS DEL ESTUDIANTE", 20, 68);
-    
-    // Separator line
-    doc.setDrawColor(0, 51, 102);
-    doc.setLineWidth(0.3);
-    doc.line(20, 72, pageWidth - 20, 72);
-    
-    // Data labels and values
-    doc.setFontSize(11);
-    const labelX = 25;
-    const valueX = 70;
-    let currentY = 85;
-    const lineHeight = 12;
-    
-    const fields = [
-      { label: "ALUMNO:", value: formData.alumno },
-      { label: "DNI:", value: formData.dni },
-      { label: "CURSO:", value: formData.curso },
-      { label: "CORREO:", value: formData.correo },
-      { label: "CELULAR:", value: formData.celular },
-    ];
-    
-    fields.forEach((field) => {
-      doc.setTextColor(100, 100, 100);
-      doc.text(field.label, labelX, currentY);
-      doc.setTextColor(0, 0, 0);
-      doc.text(field.value || "No especificado", valueX, currentY);
-      currentY += lineHeight;
-    });
-    
-    // Footer section
-    doc.setFillColor(0, 51, 102);
-    doc.rect(15, 155, pageWidth - 30, 25, 'F');
-    
-    doc.setFontSize(10);
-    doc.setTextColor(255, 255, 255);
-    doc.text(`Fecha de registro: ${new Date().toLocaleDateString('es-PE')}`, 20, 165);
-    doc.text("Documento generado automáticamente por el sistema CCD", 20, 173);
-    
-    // QR placeholder text
-    doc.setFontSize(9);
-    doc.setTextColor(150, 150, 150);
-    doc.text("Este documento es válido como comprobante de matrícula.", pageWidth / 2, 195, { align: 'center' });
-    
-    // Add QR Code if DNI exists
-    if (formData.dni.length >= 8 && qrRef.current) {
+    if (formRef.current) {
       try {
-        const qrCanvas = qrRef.current.querySelector('canvas');
-        if (qrCanvas) {
-          const qrDataUrl = qrCanvas.toDataURL('image/png');
-          doc.addImage(qrDataUrl, 'PNG', pageWidth - 55, 55, 35, 35);
-          doc.setFontSize(8);
-          doc.setTextColor(0, 51, 102);
-          doc.text("Código QR", pageWidth - 37.5, 95, { align: 'center' });
-        }
-      } catch (e) {
-        console.log("QR not loaded");
+        // Capture the entire form section as image
+        const canvas = await html2canvas(formRef.current, {
+          useCORS: true,
+          allowTaint: true,
+          background: '#ffffff',
+          width: formRef.current.scrollWidth,
+          height: formRef.current.scrollHeight,
+          windowWidth: 1400, // Force desktop width for horizontal layout
+        } as any);
+        
+        const imgData = canvas.toDataURL('image/png', 1.0);
+        
+        // Create PDF in landscape orientation for horizontal layout
+        const doc = new jsPDF({
+          orientation: 'landscape',
+          unit: 'mm',
+          format: 'a4'
+        });
+        
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        
+        // Calculate dimensions to fit the image
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+        
+        const finalWidth = imgWidth * ratio * 0.95;
+        const finalHeight = imgHeight * ratio * 0.95;
+        
+        // Center the image on the page
+        const xOffset = (pageWidth - finalWidth) / 2;
+        const yOffset = (pageHeight - finalHeight) / 2;
+        
+        doc.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
+        
+        doc.save(`matricula-${formData.dni || 'registro'}.pdf`);
+        
+        toast({
+          title: "¡PDF descargado!",
+          description: "El archivo PDF se ha descargado correctamente.",
+        });
+      } catch (err) {
+        toast({
+          title: "Error",
+          description: "No se pudo generar el PDF.",
+          variant: "destructive",
+        });
       }
     }
-    
-    doc.save(`matricula-${formData.dni || 'registro'}.pdf`);
-    
-    toast({
-      title: "¡PDF descargado!",
-      description: "El archivo PDF se ha descargado correctamente.",
-    });
   };
 
   const handleCaptureImage = async () => {
