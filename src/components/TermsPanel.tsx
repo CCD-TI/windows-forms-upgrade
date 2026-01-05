@@ -26,9 +26,7 @@ const TermsPanel = () => {
         {/* Header with Logo */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full ccd-gradient flex items-center justify-center">
-              <span className="text-primary-foreground font-heading font-bold text-sm">CCD</span>
-            </div>
+            <img src="/icon-ccd-terms.ico" alt="CCD Logo" className="w-10 h-10" />
           </div>
           
           {/* Social Icons */}
