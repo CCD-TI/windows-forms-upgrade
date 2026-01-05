@@ -201,21 +201,25 @@
     color: #003366 !important;
   }
 
-  /* Grid horizontal for print */
+  /* Grid horizontal for print - 3 equal columns */
   .grid {
     display: flex !important;
     flex-direction: row !important;
-    gap: 10px !important;
-    align-items: flex-start !important;
+    gap: 15px !important;
+    align-items: stretch !important;
   }
 
-  .lg\\:col-span-2 {
-    flex: 0 0 15% !important;
-    max-width: 15% !important;
-  }
-
+  .lg\\:col-span-2,
   .lg\\:col-span-5 {
-    flex: 1 !important;
+    flex: 1 1 33.33% !important;
+    max-width: 33.33% !important;
+    min-width: 0 !important;
+  }
+
+  /* Equal height cards */
+  .lg\\:col-span-2 > *,
+  .lg\\:col-span-5 > * {
+    height: 100% !important;
   }
 
   /* Compact cards */
