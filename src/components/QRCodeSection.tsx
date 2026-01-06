@@ -5,9 +5,10 @@ import { Gift } from "lucide-react";
 interface QRCodeSectionProps {
   dni: string;
   showQR: boolean;
+  onBenefitsClick?: () => void;
 }
 
-const QRCodeSection = ({ dni, showQR }: QRCodeSectionProps) => {
+const QRCodeSection = ({ dni, showQR, onBenefitsClick }: QRCodeSectionProps) => {
   // Always redirect to CCD website
   const qrValue = "https://www.ccdcapacitacion.edu.pe/";
 
@@ -42,6 +43,7 @@ const QRCodeSection = ({ dni, showQR }: QRCodeSectionProps) => {
       {/* Benefits Button */}
       <Button
         variant="default"
+        onClick={onBenefitsClick}
         className="ccd-gradient text-primary-foreground font-heading font-bold px-8 py-5 text-sm hover:opacity-90 transition-opacity gap-2"
       >
         <Gift className="w-4 h-4" />

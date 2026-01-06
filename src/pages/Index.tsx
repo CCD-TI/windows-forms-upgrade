@@ -244,7 +244,7 @@ Fecha: ${new Date().toLocaleDateString('es-PE')}`;
             <div className="lg:col-span-2 flex flex-col items-center gap-8">
               <CCDLogo />
               <div ref={qrRef}>
-                <QRCodeSection dni={formData.dni} showQR={formData.dni.length >= 8} />
+                <QRCodeSection dni={formData.dni} showQR={formData.dni.length >= 8} onBenefitsClick={handlePhotoCapture} />
               </div>
             </div>
 
